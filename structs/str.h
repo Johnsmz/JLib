@@ -11,7 +11,7 @@ typedef struct {
 } * str;
 
 str str_create(void) {
-    str s = malloc(sizeof(*s));
+    str s = (str)malloc(sizeof(*s));
     s->len = 0;
     s->str = null;
     return s;
@@ -20,15 +20,15 @@ str str_create_len(size_l len) {
     if (len < 0) {
         return null;
     }
-    str s = malloc(sizeof(*s));
+    str s = (str)malloc(sizeof(*s));
     s->len = 0;
-    s->str = calloc(len, sizeof(char));
+    s->str = (string)calloc(len, sizeof(char));
     return s;
 }
 str str_from_string(const string s) {
     str o = str_create();
     o->len = (int)strlen(s);
-    o->str = malloc(sizeof(char) * o->len);
+    o->str = (string)malloc(sizeof(char) * o->len);
     memcpy(o->str, s, sizeof(char) * o->len);
     return o;
 }
@@ -49,7 +49,7 @@ str str_sub(str s, int x, int y) {
     return o;
 }
 string str_to_string(str s) {
-    string out = malloc(sizeof(char) * s->len);
+    string out = (string)malloc(sizeof(char) * s->len);
     memcpy(out, s->str, sizeof(char) * s->len);
     return out;
 }
