@@ -131,7 +131,7 @@ string num_to_str(double num, int dp) {
         }
         int nn = (int)num, dig = digit(nn);
         if (cpos(nn)) {
-            string out = malloc(sizeof(char) * dig);
+            string out = (string)malloc(sizeof(char) * dig);
             for (int i = dig - 1; i >= 0; i--) {
                 out[i] = nn % 10 + '0';
                 nn /= 10;
@@ -139,7 +139,7 @@ string num_to_str(double num, int dp) {
             return out;
         } else {
             nn = qabs(nn);
-            string out = malloc(sizeof(char) * (dig + 1));
+            string out = (string)malloc(sizeof(char) * (dig + 1));
             out[0] = '-';
             for (int i = dig; i > 0; i--) {
                 out[i] = nn % 10 + '0';
@@ -149,7 +149,7 @@ string num_to_str(double num, int dp) {
         }
     } else {
         if (none(num)) {
-            string out = malloc(sizeof(char) * (2 + dp));
+            string out = (string)malloc(sizeof(char) * (2 + dp));
             out[0] = '0';
             out[1] = '.';
             for (int i = 0; i < dp; i++) {
@@ -159,7 +159,7 @@ string num_to_str(double num, int dp) {
         int dig = digit((int)num);
         dig = (dig) ? dig : 1;
         if (cpos(num)) {
-            string out = malloc(sizeof(char) * (dig + 1 + dp));
+            string out = (string)malloc(sizeof(char) * (dig + 1 + dp));
             int nn = (int)num;
             for (int i = dig - 1; i >= 0; i--) {
                 out[i] = nn % 10 + '0';
@@ -175,7 +175,7 @@ string num_to_str(double num, int dp) {
             return out;
         } else {
             num = qabs(num);
-            string out = malloc(sizeof(char) * (dig + 2 + dp));
+            string out = (string)malloc(sizeof(char) * (dig + 2 + dp));
             int nn = (int)num;
             out[0] = '-';
             for (int i = dig; i > 0; i--) {
