@@ -1,14 +1,15 @@
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 
 typedef struct {
-  _Bool *arr, neg;
+  bool *arr, neg;
   size_t len;
 } * binary;
 
 binary binary_create(int size) {
-  binary out = malloc(sizeof(*out));
-  out->arr = calloc(size, sizeof(_Bool));
+  binary out = (binary)malloc(sizeof(*out));
+  out->arr = (bool*)calloc(size, sizeof(bool));
   out->len = size;
   out->neg = 0;
   return out;
@@ -115,7 +116,7 @@ int Bin_toint(binary bin) {
 }
 
 char *Bin_tostr(binary bin) {
-  char *out = malloc(binary_length(bin) * sizeof(char));
+  char *out = (char*)malloc(binary_length(bin) * sizeof(char));
   if (bin->neg) {
     out[0] = '-';
     for (int i = 0; i < bin->len; i++) {
