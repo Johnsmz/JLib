@@ -127,7 +127,7 @@ string num_to_str(double num, int dp) {
     }
     if (dp == 0) {
         if (none(num)) {
-            return "0";
+            return (string)"0";
         }
         int nn = (int)num, dig = digit(nn);
         if (cpos(nn)) {
