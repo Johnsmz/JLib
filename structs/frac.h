@@ -27,7 +27,7 @@ int gcd(int a, int b) {
 int lcm(int a, int b) { return a * b / gcd(a, b); }
 
 frac frac_create(int num, int den) {
-    frac out = malloc(sizeof(*out));
+    frac out = (frac)malloc(sizeof(*out));
     out->num = num;
     out->den = den;
     return out;
