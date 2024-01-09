@@ -1,0 +1,45 @@
+#!/bin/bash
+
+if(($# == 1)); then
+    filename=$1
+    len=${#filename}
+    last=${filename:len-2}
+    rightlast=.c
+    if [ "$last" = "$rightlast" ]; then 
+        finalfile=${filename:0:len-2}
+        if test -f $finalfile; then
+            rm $finalfile
+        fi
+        clang $1 -o $finalfile
+    else
+        echo Please check your input file
+    fi
+elif(($# == 2)); then
+    if [ $1 = '-r' ] || [ $1 = '-R' ]; then
+        filename=$2
+        len=${#filename}
+        last=${filename:len-2}
+        rightlast=.c
+        if [ "$last" = "$rightlast" ]; then 
+            finalfile=${filename:0:len-2}
+            if test -f $finalfile; then
+                rm $finalfile
+            fi
+            clang $2 -o $finalfile
+            if test -f $finalfile; then
+                ./$finalfile
+            fi
+            if [ $1 = '-R' ]; then
+                if test -f $finalfile; then
+                    rm $finalfile
+                fi
+            fi
+        else
+            echo Please check your input file
+        fi
+    else
+        echo clg -r/-R [file.c]
+    fi
+else
+    echo clg [file.c]
+fi
