@@ -7,9 +7,9 @@ typedef struct {
 } * vector;
 
 vector vector_create(int dimension) {
-  vector out = malloc(sizeof(*out));
+  vector out = (vector)malloc(sizeof(*out));
   out->dimension = dimension;
-  out->arr = calloc(dimension, sizeof(double));
+  out->arr = (double*)calloc(dimension, sizeof(double));
   return out;
 }
 
