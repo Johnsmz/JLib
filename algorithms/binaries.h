@@ -1,7 +1,7 @@
 #include <stdlib.h>
 
 int *cloneintarray(int *arr, int len) {
-  int *out = malloc(sizeof(int) * len);
+  int *out = (int*)malloc(sizeof(int) * len);
   for (int i = 0; i < len; i++) {
     out[i] = arr[i];
   }
@@ -9,7 +9,7 @@ int *cloneintarray(int *arr, int len) {
 }
 
 int *subintarr(int *arr, int start, int end) {
-  int *out = malloc(sizeof(int) * (end - start));
+  int *out = (int*)malloc(sizeof(int) * (end - start));
   for (int i = 0; i < end - start; i++) {
     out[i] = arr[start + i];
   }
