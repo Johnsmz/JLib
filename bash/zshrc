@@ -104,27 +104,23 @@ source $ZSH/oh-my-zsh.sh
 
 # alias
 alias l='ls'
-alias rm='rm -fr'
-alias mv='mv -f'
-alias cp='cp -fr'
+alias rm='rm -r'
+alias mv='mv'
+alias cp='cp -r'
 alias t='date'
 alias lt='tree -L 1'
-alias python='python3'
 alias clgr='clg -R'
 alias js='joshuto'
 alias rag='ranger'
 alias text='open -e'
 alias v='vim'
-alias hc='history -c'
 alias o='open'
 alias g='open -e'
 alias r='rm'
 alias ju='julia'
 alias py='python'
-alias cl='clear'
 alias a='cat'
 
 # path
-export PATH="/Users/john/.local/cstbin/picoc:$PATH"
 export PATH="/Users/john/.local/cstbin:$PATH"
 export PATH="/opt/homebrew/opt/binutils/bin:$PATH"
