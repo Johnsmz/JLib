@@ -1,3 +1,4 @@
+#include <stddef.h>
 #include <stdlib.h>
 #define null NULL
 
@@ -112,14 +113,6 @@ void list_remove(list list, int index) {
     list->size--;
     return;
 }
-void list_del(linode node) {
-    linode left = (linode)node->prev, right = (linode)node->next;
-    left->next = right;
-    right->prev = left;
-    list li = (list)node->head;
-    li->size--;
-    return;
-}
 void list_set(list list, int index, element data) {
     if ((index >= 0 && index >= list->size) || (index < 0 && -index > list->size)) {
         listerr = 2;
@@ -133,11 +126,12 @@ void list_set(list list, int index, element data) {
     right->prev = new_node;
     return;
 }
-void list_change(linode node, element data) {
-    linode left = (linode)node->prev, right = (linode)node->next, new_node = linode_create((list)node->head, data);
-    new_node->prev = left;
-    left->next = new_node;
-    new_node->next = right;
-    right->prev = new_node;
-    return;
-}
+
+struct{
+    list    (*create)   (void);
+    size_l  (*size)     (list l);
+    element (*get)      (list l, int index);
+    void    (*add)      (list l, int index, element data);
+    void    (*remove)   (list list, int index);
+    void    (*set)      (list list, int index, element data);
+} List = {list_create,list_size,list_get,list_add,list_remove,list_set};
