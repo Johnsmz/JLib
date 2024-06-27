@@ -1,7 +1,8 @@
 /* Build by Johnsmz */
 
-#include <algorithms/binaries.h>
-#include <algorithms/sort.h>
+#ifndef __JOHNSMZ_LIB_H__
+#define __JOHNSMZ_LIB_H__
+
 #include <complex.h>
 #include <ctype.h>
 #include <errno.h>
@@ -20,11 +21,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <structs/binary.h>
-#include <structs/frac.h>
 #include <structs/list.h>
-#include <structs/str.h>
-#include <structs/vector.h>
 #include <tgmath.h>
 #include <time.h>
 #include <unistd.h>
@@ -235,3 +232,5 @@ double str_to_num(string str) {
     }
     return out;
 }
+
+#endif
