@@ -1,3 +1,7 @@
+
+#ifndef __JOHNSMZ_LIST_H__
+#define __JOHNSMZ_LIST_H__
+
 #include <stddef.h>
 #include <stdlib.h>
 #define null NULL
@@ -135,3 +139,6 @@ struct{
     void    (*remove)   (list list, int index);
     void    (*set)      (list list, int index, element data);
 } List = {list_create,list_size,list_get,list_add,list_remove,list_set};
+
+
+#endif
