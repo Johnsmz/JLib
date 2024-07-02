@@ -1,4 +1,3 @@
-
 #ifndef __JOHNSMZ_LIST_H__
 #define __JOHNSMZ_LIST_H__
 
