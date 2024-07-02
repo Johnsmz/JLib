@@ -1,3 +1,6 @@
+#ifndef __JOHNSMZ_STR_H__
+#define __JOHNSMZ_STR_H__
+
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -68,3 +71,16 @@ bool str_equal(str a, str b) {
     }
     return !strncmp(a->str, b->str, a->len);
 }
+
+struct{
+    str (*create) (void);
+    str (*create_len) (size_l len);
+    str (*from_string) (const string s);
+    size_l (*length) (str s);
+    str (*sub) (str s, int from, int to);
+    string (*to_string) (str s);
+    str (*cat) (str a, str b);
+    bool (*equal) (str a, str b);
+} String = {str_create, str_create_len,str_from_string,str_len,str_sub,str_to_string,str_cat,str_equal};
+
+#endif
