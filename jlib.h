@@ -22,6 +22,11 @@
 #include <stdlib.h>
 #include <string.h>
 #include <structs/list.h>
+#include <structs/array.h>
+#include <structs/fraction.h>
+#include <structs/binary.h>
+#include <structs/str.h>
+#include <structs/vector.h>
 #include <tgmath.h>
 #include <time.h>
 #include <unistd.h>
@@ -54,7 +59,6 @@
           default: 0)
 typedef int err;
 typedef void *element;
-typedef char *string;
 
 err error = 0;
 int LARGE_INT = 8000000;

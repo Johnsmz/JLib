@@ -1,3 +1,6 @@
+#ifndef __JOHNSMZ_BINARY_H__
+#define __JOHNSMZ_BINARY_H__
+
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
@@ -182,3 +185,5 @@ binary Bin_fromstr(char *str) {
   }
   return out;
 }
+
+#endif

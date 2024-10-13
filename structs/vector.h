@@ -1,3 +1,6 @@
+#ifndef __JOHNSMZ_VECTOR_H__
+#define __JOHNSMZ_VECTOR_H__
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -97,3 +100,5 @@ void vector_print(vector vec) {
   printf(")");
   return;
 }
+
+#endif
