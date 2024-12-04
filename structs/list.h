@@ -132,9 +132,9 @@ void list_set(list list, int index, element data) {
 
 struct{
     list    (*create)   (void);
-    size_l  (*size)     (list l);
-    element (*get)      (list l, int index);
-    void    (*add)      (list l, int index, element data);
+    size_l  (*size)     (list list);
+    element (*get)      (list list, int index);
+    void    (*add)      (list list, int index, element data);
     void    (*remove)   (list list, int index);
     void    (*set)      (list list, int index, element data);
 } List = {list_create,list_size,list_get,list_add,list_remove,list_set};
