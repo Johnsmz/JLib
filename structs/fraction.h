@@ -8,7 +8,6 @@
 #include <stdio.h>
 
 #define null NULL
-#define string char*
 
 typedef struct {int n, d;} * fraction;
 
