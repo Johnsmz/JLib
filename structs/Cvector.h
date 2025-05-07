@@ -52,13 +52,13 @@ void __vector_modify__(vector vec, size_t i, element val) {
 }
 
 void __vector_insert__(vector vec, size_t ii, element val) {
-    if(!vec->capacity){vec->capacity = 0x10; vec->data = malloc(0x10*sizeof(element);}
+    if(!vec->capacity){vec->capacity = 0x10; vec->data = (element*)malloc(0x10*sizeof(element));}
     if (++(vec->size) >= vec->capacity) {
         if      (vec->capacity < 0x40)      { vec->capacity += 0x10; }
         else if (vec->capacity < 0x100)     { vec->capacity += 0x20; }
         else if (vec->capacity < 0x1000)    { vec->capacity += 0x100; }
         else                                { vec->capacity += 0x1000; }
-        vec->data = realloc(vec->data, vec->capacity * sizeof(element));
+        vec->data = (element*)realloc(vec->data, vec->capacity * sizeof(element));
         if (vec->data == NULL) {
             errno = ENOSPC;
             perror("Vector.insert() => cannot alloc new memory");
@@ -79,12 +79,12 @@ void __vector_delete__(vector vec, size_t i) {
     memmove(vec->data + i, vec->data + i + 0x1, (--(vec->size) - i) * sizeof(element));
     if (vec->capacity > 0x10) {
         if (vec->size <= 0x40) {
-            if(vec->capacity >= vec->size + 0x10){ vec->capacity -= 0x10; vec->data = realloc(vec->data, vec->capacity * sizeof(element)); }
+            if(vec->capacity >= vec->size + 0x10){ vec->capacity -= 0x10; vec->data = (element*)realloc(vec->data, vec->capacity * sizeof(element)); }
         } else if (vec->size <= 0x100) {
-            if(vec->capacity >= vec->size + 0x20){ vec->capacity -= 0x20; vec->data = realloc(vec->data, vec->capacity * sizeof(element)); }
+            if(vec->capacity >= vec->size + 0x20){ vec->capacity -= 0x20; vec->data = (element*)realloc(vec->data, vec->capacity * sizeof(element)); }
         } else if (vec->size <= 0x1000) {
-            if(vec->capacity >= vec->size + 0x100){ vec->capacity -= 0x100; vec->data = realloc(vec->data, vec->capacity * sizeof(element)); }
-        } else if (vec->capacity >= vec->size + 0x1000) { vec->capacity -= 0x1000; vec->data = realloc(vec->data, vec->capacity * sizeof(element)); }
+            if(vec->capacity >= vec->size + 0x100){ vec->capacity -= 0x100; vec->data = (element*)realloc(vec->data, vec->capacity * sizeof(element)); }
+        } else if (vec->capacity >= vec->size + 0x1000) { vec->capacity -= 0x1000; vec->data = (element*)realloc(vec->data, vec->capacity * sizeof(element)); }
     }
     if (vec->data == NULL) {
         errno = ENOSPC;
