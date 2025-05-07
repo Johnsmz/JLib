@@ -52,6 +52,7 @@ void __vector_modify__(vector vec, size_t i, element val) {
 }
 
 void __vector_insert__(vector vec, size_t ii, element val) {
+    if(!vec->capacity){vec->capacity = 0x10; vec->data = malloc(0x10*sizeof(element);}
     if (++(vec->size) >= vec->capacity) {
         if      (vec->capacity < 0x40)      { vec->capacity += 0x10; }
         else if (vec->capacity < 0x100)     { vec->capacity += 0x20; }
