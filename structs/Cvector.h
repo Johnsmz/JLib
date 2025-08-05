@@ -2,16 +2,19 @@
 #define __VECTOR_H__
 
 #include <errno.h>
+#include <limits.h>
+#include <stddef.h>
 #include <stdlib.h>
+#include <stdint.h>
 #include <string.h>
-
-extern int errno;
+#include <stdio.h>
 
 typedef void *element;
 typedef struct {
     element *data;
     size_t size;
     size_t capacity;
+    size_t shrink;
 } *vector;
 
 vector __vector_create__() {
@@ -19,6 +22,7 @@ vector __vector_create__() {
     vec->data = NULL;
     vec->size = 0x0;
     vec->capacity = 0x0;
+    vec->shrink = 0x0;
     return vec;
 }
 
@@ -33,7 +37,7 @@ void __vector_destroy__(vector vec) {
 }
 
 element __vector_get__(vector vec, size_t i) {
-    if (i < 0x0 || i > vec->size) {
+    if (i > vec->size) {
         errno = EINVAL;
         perror("Vector.get() => index out of bound");
         exit(errno);
@@ -42,7 +46,7 @@ element __vector_get__(vector vec, size_t i) {
 }
 
 void __vector_modify__(vector vec, size_t i, element val) {
-    if (i < 0x0 || i >= vec->size) {
+    if (i >= vec->size) {
         errno = EINVAL;
         perror("Vector.modify() => index out of bound");
         exit(errno);
@@ -54,10 +58,16 @@ void __vector_modify__(vector vec, size_t i, element val) {
 void __vector_insert__(vector vec, size_t ii, element val) {
     if(!vec->capacity){vec->capacity = 0x10; vec->data = (element*)malloc(0x10*sizeof(element));}
     if (++(vec->size) >= vec->capacity) {
+        
+        vec->shrink = vec->capacity;
         if      (vec->capacity < 0x40)      { vec->capacity += 0x10; }
         else if (vec->capacity < 0x100)     { vec->capacity += 0x20; }
         else if (vec->capacity < 0x1000)    { vec->capacity += 0x100; }
-        else                                { vec->capacity += 0x1000; }
+        else {
+            int log = 0x0, n = vec->capacity;
+            while (n) { log++; n >>= 0x4; }
+            vec->capacity += (0x1<<((log-0x2)<<0x2));
+        }
         vec->data = (element*)realloc(vec->data, vec->capacity * sizeof(element));
         if (vec->data == NULL) {
             errno = ENOSPC;
@@ -71,24 +81,31 @@ void __vector_insert__(vector vec, size_t ii, element val) {
 }
 
 void __vector_remove__(vector vec, size_t i) {
-    if (i < 0x0 || i >= vec->size) {
+    if (i >= vec->size) {
         errno = EINVAL;
-        perror("Vector.delete() => index out of bound");
+        perror("Vector.remove() => index out of bound");
         exit(errno);
     }
     memmove(vec->data + i, vec->data + i + 0x1, (--(vec->size) - i) * sizeof(element));
-    if (vec->capacity > 0x10) {
-        if (vec->size <= 0x40) {
-            if(vec->capacity >= vec->size + 0x10){ vec->capacity -= 0x10; vec->data = (element*)realloc(vec->data, vec->capacity * sizeof(element)); }
-        } else if (vec->size <= 0x100) {
-            if(vec->capacity >= vec->size + 0x20){ vec->capacity -= 0x20; vec->data = (element*)realloc(vec->data, vec->capacity * sizeof(element)); }
-        } else if (vec->size <= 0x1000) {
-            if(vec->capacity >= vec->size + 0x100){ vec->capacity -= 0x100; vec->data = (element*)realloc(vec->data, vec->capacity * sizeof(element)); }
-        } else if (vec->capacity >= vec->size + 0x1000) { vec->capacity -= 0x1000; vec->data = (element*)realloc(vec->data, vec->capacity * sizeof(element)); }
+    if (vec->size<=vec->shrink && vec->size) {
+        vec->capacity = vec->shrink;
+        vec->data = (element*)realloc(vec->data, vec->capacity * sizeof(element));
+        if (vec->capacity==0x10) { vec->shrink = 0x0; }
+        else {
+            if (vec->capacity>0x1000){
+                unsigned int log = 0x0; unsigned int n = vec->capacity;
+                while (n) { log++; n >>= 0x4; }
+                if (vec->capacity == (size_t)(0x1<<((log-0x1)<<0x2))) { vec->shrink = vec->capacity - (0x1<<((log-0x3)<<0x2)); }
+                else { vec->shrink = vec->capacity - (0x1<<((log-0x2)<<0x2)); }
+            }
+            else if (vec->capacity>0x100) { vec->shrink = vec->capacity - 0x100; }
+            else if (vec->capacity>0x40)  { vec->shrink = vec->capacity - 0x20; }
+            else if (vec->capacity>0x10)  { vec->shrink = vec->capacity - 0x10; }
+        }
     }
     if (vec->data == NULL) {
         errno = ENOSPC;
-        perror("Vector.delete() => cannot free memory");
+        perror("Vector.remove() => cannot free memory");
         exit(errno);
     }
     return;
