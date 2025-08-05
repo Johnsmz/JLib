@@ -87,7 +87,8 @@ void __vector_remove__(vector vec, size_t i) {
         exit(errno);
     }
     memmove(vec->data + i, vec->data + i + 0x1, (--(vec->size) - i) * sizeof(element));
-    if (vec->size<=vec->shrink && vec->size) {
+    if (!vec->size) { free(vec->data); vec->capacity = 0x0; vec->shrink = 0x0; return; }
+    if (vec->size<=vec->shrink) {
         vec->capacity = vec->shrink;
         vec->data = (element*)realloc(vec->data, vec->capacity * sizeof(element));
         if (vec->capacity==0x10) { vec->shrink = 0x0; }
