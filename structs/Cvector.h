@@ -70,7 +70,7 @@ void __vector_insert__(vector vec, size_t ii, element val) {
     return;
 }
 
-void __vector_delete__(vector vec, size_t i) {
+void __vector_remove__(vector vec, size_t i) {
     if (i < 0x0 || i >= vec->size) {
         errno = EINVAL;
         perror("Vector.delete() => index out of bound");
@@ -101,7 +101,7 @@ struct {
     element     (*get)          (vector vec, size_t index);
     void        (*modify)       (vector vec, size_t index, element value);
     void        (*insert)       (vector vec, size_t index, element value);
-    void        (*delete)       (vector vec, size_t index);
-} Vector = {__vector_create__, __vector_size__, __vector_destroy__, __vector_get__, __vector_modify__, __vector_insert__, __vector_delete__};
+    void        (*remove)       (vector vec, size_t index);
+} Vector = {__vector_create__, __vector_size__, __vector_destroy__, __vector_get__, __vector_modify__, __vector_insert__, __vector_remove__};
 
 #endif
