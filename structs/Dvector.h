@@ -1,5 +1,5 @@
-#ifndef __VECTOR_H__
-#define __VECTOR_H__
+#ifndef __DVECTOR_H__
+#define __DVECTOR_H__
 
 #include <errno.h>
 #include <limits.h>
