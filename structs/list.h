@@ -6,7 +6,6 @@
 #include <stddef.h>
 #include <stdlib.h>
 
-typedef int size_l;
 typedef void *element;
 
 typedef struct {
@@ -15,7 +14,7 @@ typedef struct {
 } *linode;
 
 typedef struct {
-    size_l size;
+    size_t size;
     linode head, tail;
 } *list;
 
@@ -37,7 +36,7 @@ list list_create(void) {
     return li;
 }
 
-size_l list_size(list list) { return list->size; }
+size_t list_size(list list) { return list->size; }
 
 linode linode_get_node(linode node, int index) {
     if (node == NULL) {
@@ -177,7 +176,7 @@ void list_purge(list list) {
 
 struct {
     list        (*create)       (void);
-    size_l      (*size)         (list list);
+    size_t      (*size)         (list list);
     element     (*get)          (list list, int index);
     void        (*add)          (list list, int index, element data);
     void        (*remove)       (list list, int index);
