@@ -1,7 +1,8 @@
 #ifndef __JOHNSMZ_LIST_H__
 #define __JOHNSMZ_LIST_H__
 
-#include <error.h>
+#include <errno.h>
+#include <stdio.h>
 #include <stddef.h>
 #include <stdlib.h>
 
