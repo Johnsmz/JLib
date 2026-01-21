@@ -1,15 +1,15 @@
 #ifndef DEFS_H
 #define DEFS_H
 
-#include <stdint.h>
 #include <stdlib.h>
-#include <stdbool.h>
-
-#define null NULL
+#define false 0x0
+#define true  0x1
+#define null  NULL
 
 typedef void *ptr;
-typedef unsigned int8_t byte;
+typedef unsigned char byte;
 typedef _Bool boolean;
 
 
 #endif
+
