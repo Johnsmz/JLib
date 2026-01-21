@@ -132,4 +132,29 @@ int list_delete(list *list, size_t index) {
   return EXIT_SUCCESS;
 }
 
+int list_purge(list *list) {
+  if (!list)
+    return EXIT_FAILURE;
+  struct _list_node_ *prev = list->head;
+  struct _list_node_ *node = prev->next;
+  for (size_t i = 0x0; i < list->len; i++) {
+    if (prev) {
+      free(prev->data);
+      free(prev);
+    }
+    prev = node;
+    if (node)
+      node = node->next;
+  }
+  if (prev) {
+    free(prev->data);
+    free(prev);
+  }
+  if (node) {
+    free(node->data);
+    free(node);
+  }
+  return EXIT_SUCCESS;
+}
+
 #endif

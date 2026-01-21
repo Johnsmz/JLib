@@ -68,8 +68,7 @@ int vec_insert(vec *vec, size_t index, ptr data) {
     if (!vec->data)
       return EXIT_FAILURE;
   }
-  memmove(vec->data + (index + 0x1) * vec->element_size,
-          vec->data + index * vec->element_size,
+  memmove(vec->data + (index + 0x1) * vec->element_size, vec->data + index * vec->element_size,
           ((vec->len) - index) * (vec->element_size));
   memcpy(vec->data + index * vec->element_size, data, vec->element_size);
   return EXIT_SUCCESS;
@@ -79,8 +78,7 @@ int vec_delete(vec *vec, size_t index) {
   if (!vec || index >= vec->len)
     return EXIT_FAILURE;
 
-  memmove(vec->data + index * vec->element_size,
-          vec->data + (index + 0x1) * vec->element_size,
+  memmove(vec->data + index * vec->element_size, vec->data + (index + 0x1) * vec->element_size,
           (--(vec->len) - index) * vec->element_size);
   if (!(vec->len)) {
     free(vec->data);
@@ -119,6 +117,15 @@ int vec_delete(vec *vec, size_t index) {
   }
   if (!(vec->data))
     return EXIT_FAILURE;
+  return EXIT_SUCCESS;
+}
+
+int vec_purge(vec *vec) {
+  if (!vec)
+    return EXIT_FAILURE;
+  if (vec->data)
+    free(vec->data);
+  free(vec);
   return EXIT_SUCCESS;
 }
 
