@@ -10,6 +10,7 @@ typedef struct {
   size_t element_size;
   size_t capacity;
   size_t shrink;
+  size_t step;
   byte *data;
 } vec;
 
@@ -21,6 +22,7 @@ int vec_init(vec *vec, size_t element_size) {
   vec->element_size = element_size;
   vec->capacity = 0x0;
   vec->shrink = 0x0;
+  vec->step = 0x0;
   vec->data = null;
   return EXIT_SUCCESS;
 }
