@@ -119,7 +119,6 @@ int vec_purge(vec *vec) {
     return EXIT_FAILURE;
   if (vec->data)
     free(vec->data);
-  free(vec);
   return EXIT_SUCCESS;
 }
 
